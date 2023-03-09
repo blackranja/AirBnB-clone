@@ -8,7 +8,8 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const registerUser = (ev) => {
         ev.preventDefault();
-        axios.get('http://localhost:4000/test')
+        console.log(name,email,password)
+        axios.post('http://localhost:4000/register',{name,email,password})
     }
 
   return (
