@@ -1,34 +1,40 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-const connectDB = require('./db/connect');
+const User = require('./models/ranja.js');
 
-
-const authenticateUser = require('./middleware/auth');
-const authRouter = require('./routes/auth');
-
+const bcryptSalt = bcrypt.genSalt(10);
 const app = express();
 app.use(express.json());
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:5173',
 }));
-app.use('/', authRouter);
+mongoose.connect(process.env.MONGO_URI);
 
+app.post('/register', async (req, res) => {
+    const { name, email, password } = req.body;
 
-const port = process.env.PORT || 3000;
-const start = async () => {
+    console.log(name, email, password)
     try {
-        await connectDB(process.env.MONGO_URI);
-        console.log("connected to the database successfully");
-        app.listen(port, () => {
-            console.log('Server is listening to port 4000.....')
-        });
-
-    } catch (error) {
-        console.log(error);
+        const userDoc = await User.create({
+            name,
+            email,
+            password: bcrypt.hash(password, bcryptSalt),
+        })
+        res.json(userDoc);
+    } catch (e) {
+        res.status(422).json(e);
     }
-}
-start();
 
+
+
+
+})
+
+app.listen(4000, () => {
+    console.log("Server is Listening on port 4000.....")
+});

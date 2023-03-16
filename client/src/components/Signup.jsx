@@ -6,12 +6,22 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const registerUser = (ev) => {
+    const registerUser = async (ev) => {
         ev.preventDefault();
-        console.log(name,email,password)
-        axios.post('http://localhost:4000/register',{name,email,password})
-    }
 
+        console.log(name, email, password)
+        try {
+            await axios.post('http://localhost:4000/register', {
+                name,
+                email,
+                password
+            });
+            alert('Registaration successful. Now you can log in');
+        } catch (e) {
+            alert('Registration Failed. please typr again later');
+        }
+       
+    }
   return (
     <div className="mt-4 grow flex items-center justify-around">
             <div className="mt-20">
