@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('./models/ranja.js');
 
@@ -34,6 +35,27 @@ app.post('/register', async (req, res) => {
 
 
 })
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log(`Email Address:-${email},Password:-${password}`)
+    const userDoc = await User.findOne({ email });
+    if (userDoc) {
+        const passOk = bcrypt.compareSync(password, userDoc.password);
+        if (passOk) {
+            jwt.sign({ email: userDoc.email, id: userDoc._id }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json('Pass ok');
+            });
+        } else {
+            res.status(422).json('Pass not OK');
+        }
+
+    } else {
+        res.json('not found');
+    }
+
+});
 
 app.listen(4000, () => {
     console.log("Server is Listening on port 4000.....")
