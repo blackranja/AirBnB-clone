@@ -11,7 +11,7 @@ const Signup = () => {
 
         console.log(name, email, password)
         try {
-            await axios.post('http://127.0.0.1:4000/register', {
+            await axios.post('/register', {
                 name,
                 email,
                 password
