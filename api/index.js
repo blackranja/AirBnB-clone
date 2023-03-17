@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 
 const User = require('./models/ranja.js');
 
-const bcryptSalt = bcrypt.genSalt(10);
+const bcryptSalt = bcrypt.genSaltSync(10);
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -23,7 +23,7 @@ app.post('/register', async (req, res) => {
         const userDoc = await User.create({
             name,
             email,
-            password: bcrypt.hash(password, bcryptSalt),
+            password: bcrypt.hashSync(password, bcryptSalt),
         })
         res.json(userDoc);
     } catch (e) {
