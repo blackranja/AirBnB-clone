@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Index from './pages/Index'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AccountPage from './pages/AccountPage';
 import axios from 'axios';
 import { UserContextProvider } from './context/userContext'
 
@@ -16,7 +17,10 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/login" element={<LoginPage />}/>
-      <Route path="/register" element={<SignupPage/>}/>
+          <Route path="/register" element={<SignupPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/:subpage?" element={<AccountPage />} />
+          
       </Routes>
       </BrowserRouter>
       </UserContextProvider>
