@@ -20,6 +20,7 @@ const App = () => {
           <Route path="/register" element={<SignupPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/:subpage?" element={<AccountPage />} />
+          <Route path="/account/:subpage/:action" element={<AccountPage />} />
           
       </Routes>
       </BrowserRouter>
