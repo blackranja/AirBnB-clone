@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
 
 const Navbar = () => {
-  const { user,setUser } = useContext(UserContext);
+  
+  const { user } = useContext(UserContext);
+  const [users, setUsers] = useState('');
+ 
+
  //console.log({ user });
-  useEffect(() => {
-    
-  },[])
+  
   return (
      <div>
       <header className="p-4 flex justify-between">
@@ -47,7 +49,8 @@ const Navbar = () => {
 </svg>
 </Link>
           </div>
-          {!!user && (
+          {
+            user && (
             <div className="text-black text-sm flex">
               {user.name}
               </div>

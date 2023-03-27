@@ -5,7 +5,7 @@ import { UserContext } from '../context/userContext';
 
 const Login = () => {
     
-    const { setUser,user } = useContext(UserContext);
+    const {user, setUser } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
@@ -13,18 +13,17 @@ const Login = () => {
     const handleLoginSubmit = async (ev) => {
         ev.preventDefault();
         try {
-            const userInfo = await axios.post('/login', { email, password });
+            const userInfo = await axios.post('/login', { email, password })
             setUser(userInfo);
+            
             alert('Login successful');
             setRedirect(true);
+            return user;
         } catch (e) {
             alert('Login Failed');
         }
     }
-    useEffect(() => {
     
-        
-    },[])
     if (redirect) {
         return <Navigate to={'/'}/>
     }

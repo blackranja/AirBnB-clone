@@ -14,7 +14,11 @@ const AccountPage = () => {
   }
 
 if(!ready){
-    return 'Loading.....';
+  return (
+    <div className="text-gray-500 text-2xl font-bold">
+      Loading.....
+    </div>
+  );
 }
   
    if(ready && !user && !redirect){
